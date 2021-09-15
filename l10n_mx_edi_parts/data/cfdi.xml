@@ -1,0 +1,18 @@
+<odoo>
+    <template id="cfdiv33_inherit" inherit_id="l10n_mx_edi.cfdiv33">
+        <xpath expr="//*[local-name()='Concepto']" position="inside">
+            <t t-set="lot_values" t-value="record._get_invoiced_lot_values()"/>
+            <t t-foreach="lot_values" t-as="unit">
+                <t t-set="unit_value" t-value="format_float(line_values['price_subtotal_unit'], currency_precision)"/>
+                <cfdi:Parte xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+                    t-att-ClaveProdServ="line.product_id.unspsc_code_id.code"
+                    t-att-NoIdentificacion="unit['lot_name']"
+                    t-att-Cantidad="unit['quantity']"
+                    t-att-Unidad="format_string(line.product_uom_id.name, 20)"
+                    t-att-Descripcion="line.name[:1000]"
+                    t-att-ValorUnitario="unit_value"
+                    t-att-Importe="unit_value"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>
