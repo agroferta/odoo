@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" priority="100" inherit_id="account.report_invoice_document">
+        <xpath expr="//p[@name='note']" position="before">
+            <div t-if="o.l10n_mx_edi_legend_ids" style="font-size:10px">
+                <strong>Fiscal Legend: </strong>
+                <ul class="list-group list-group-flush">
+                    <t t-foreach="o.l10n_mx_edi_legend_ids" t-as="fiscal_legend">
+                        <li class="list-group-item" style="padding-bottom: 5px; padding-top: 0px;">
+                            <span t-if="fiscal_legend.name" t-field="fiscal_legend.name"/>
+                            <span t-if="fiscal_legend.tax_provision" t-field="fiscal_legend.tax_provision"/>
+                            <span t-if="fiscal_legend.rule" t-field="fiscal_legend.rule"/>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </xpath>
+    </template>
+</odoo>
